@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".viewgroup.ThreeActivity">
 
-</android.support.constraint.ConstraintLayout>
+
+    <com.zey.customview.viewgroup.MyViewGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#0000ff"
+        android:padding="20dp">
+
+        <Button
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:layout_margin="10dp"
+            android:background="#ff0000"
+            android:text="我是子View1" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:background="#ffff00"
+            android:text="我是子View2" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_margin="10dp"
+            android:background="#00ff00"
+            android:text="我是子View3" />
+    </com.zey.customview.viewgroup.MyViewGroup>
+
+</LinearLayout>
