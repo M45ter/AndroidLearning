@@ -34,28 +34,28 @@ public class MyViewGroup extends ViewGroup {
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-        //子view测量
+        //子view测量 注意计算padding margin
         final int childCount = getChildCount();
-        //和measureChildren效果没区别？
-//        for (int i = 0; i < childCount; i++) {
-//            final View child = getChildAt(i);
-//            LayoutParams lp = (LayoutParams) child.getLayoutParams();
-//            final int childWidthMeasureSpec = getChildMeasureSpec(widthMeasureSpec,
-//                    getPaddingLeft() + getPaddingRight() + lp.leftMargin + lp.rightMargin, lp.width);
-//
-//            int heightPadding = lp.topMargin + lp.bottomMargin;
-//            if (i == 0) {
-//                heightPadding += getPaddingTop();
-//            }
-//            if (i == childCount - 1) {
-//                heightPadding += getPaddingBottom();
-//            }
-//            final int childHeightMeasureSpec = getChildMeasureSpec(heightMeasureSpec,
-//                    heightPadding, lp.height);
-//
-//            child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
-//        }
-        measureChildren(widthMeasureSpec, heightMeasureSpec);
+        for (int i = 0; i < childCount; i++) {
+            final View child = getChildAt(i);
+            LayoutParams lp = (LayoutParams) child.getLayoutParams();
+            final int childWidthMeasureSpec = getChildMeasureSpec(widthMeasureSpec,
+                    getPaddingLeft() + getPaddingRight() + lp.leftMargin + lp.rightMargin, lp.width);
+
+            int heightPadding = 0;
+            if (i == 0) {
+                heightPadding += getPaddingTop();
+            }
+            heightPadding += lp.topMargin + lp.bottomMargin;
+            if (i == childCount - 1) {
+                heightPadding += getPaddingBottom();
+            }
+            final int childHeightMeasureSpec = getChildMeasureSpec(heightMeasureSpec,
+                    heightPadding, lp.height);
+
+            child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
+            Log.i(TAG, "onMeasure: child " + i + " height: " + child.getMeasuredHeight() + " width: " + child.getMeasuredWidth());
+        }
         //根据子View尺寸，再测量自己尺寸
         int width = 0;
         int height = 0;
@@ -68,8 +68,10 @@ public class MyViewGroup extends ViewGroup {
                 for (int i = 0; i < childCount; i++) {
                     final View child = getChildAt(i);
                     LayoutParams lp = (LayoutParams) child.getLayoutParams();
+                    //找出最宽的child
                     width = Math.max(width, child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin);
                 }
+                width += getPaddingLeft() + getPaddingRight();
                 break;
         }
         switch (heightMode) {
@@ -81,12 +83,15 @@ public class MyViewGroup extends ViewGroup {
                 for (int i = 0; i < childCount; i++) {
                     final View child = getChildAt(i);
                     LayoutParams lp = (LayoutParams) child.getLayoutParams();
+                    //计算子View的总高度
                     height += (child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin);
                 }
+                height += getPaddingTop() + getPaddingBottom();
                 break;
         }
         //保存自身尺寸
-        setMeasuredDimension(width + getPaddingLeft() + getPaddingRight(), height + getPaddingTop() + getPaddingBottom());
+        Log.i(TAG, "onMeasure: width: " + width + " height: " + height);
+        setMeasuredDimension(width, height);
     }
 
     @Override
@@ -108,6 +113,8 @@ public class MyViewGroup extends ViewGroup {
             top += lp.topMargin;
             int right = left + width;
             int bottom = top + height;
+            //子View左上右下4个点的位置
+            Log.i(TAG, "onLayout: child " + i + " left: " + left + " top: " + top + " right: " + right + " bottom: " + bottom);
             child.layout(left, top, right, bottom);
             top = bottom + lp.bottomMargin;
         }
