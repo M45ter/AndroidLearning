@@ -3,4 +3,8 @@
     <declare-styleable name="MyView">
         <attr name="color" format="color" />
     </declare-styleable>
+    <declare-styleable name="SpecialViewGroup">
+        <attr name="left" format="string" />
+        <attr name="right" format="string" />
+    </declare-styleable>
 </resources>
