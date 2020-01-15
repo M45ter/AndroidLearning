@@ -62,10 +62,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
 
     @Override
     public void responseLoginResult(boolean loginStatusResult) {
-        if (loginStatusResult) {
-            Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "登录失败", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(this, loginStatusResult ? "登录成功" : "登录失败", Toast.LENGTH_SHORT).show();
     }
 }

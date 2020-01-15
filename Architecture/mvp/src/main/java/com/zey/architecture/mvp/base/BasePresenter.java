@@ -1,5 +1,11 @@
 package com.zey.architecture.mvp.base;
 
+/**
+ * Presenter层
+ * 持有View和Model，作为两者的连接，所有调度操作
+ * @param <M>
+ * @param <V>
+ */
 public abstract class BasePresenter<M extends BaseModel, V extends BaseActivity> {
 
     public V mView;

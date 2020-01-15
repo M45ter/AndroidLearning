@@ -5,6 +5,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+/**
+ * 一个基本的mvp模式
+ * Activity作为View
+ * 持有Presenter，用户对View的操作调用Presenter方法
+ * @param <P>
+ */
 public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements View.OnClickListener {
 
     public P mPresenter;
