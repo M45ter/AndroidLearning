@@ -38,4 +38,6 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:${constraintlayoutVersion}"
 
     implementation project(":base")
+
+    implementation "com.google.android.material:material:$materialVersion"
 }
