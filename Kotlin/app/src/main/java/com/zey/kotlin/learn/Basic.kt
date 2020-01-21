@@ -1,5 +1,7 @@
 package com.zey.kotlin.learn
 
+//基本语法
+
 //入口函数，直接写main函数，实际上会生成一个文件名为名字的类BasicKt.class
 fun main() {
 //    println("Hello World!")
