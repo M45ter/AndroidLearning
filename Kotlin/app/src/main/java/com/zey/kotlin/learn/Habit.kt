@@ -1,5 +1,7 @@
 package com.zey.kotlin.learn
 
+import java.math.BigDecimal
+
 //习惯用法
 //创建 DTOs（POJOs/POCOs）
 /**
@@ -90,6 +92,61 @@ fun main() {
 
     //If not null and else 缩写
     println(list?.size ?: "empty")
+
+    //在可能会空的集合中取第一元素
+    val element = list.firstOrNull()
+
+    val value = element
+    //if not null 执行代码
+    value?.let{
+        println("let in $it")
+    }
+
+    test()
+
+    //对一个对象实例调用多个方法 （with）
+    /*
+    class Turtle {
+        fun penDown()
+        fun penUp()
+        fun turn(degrees: Double)
+        fun forward(pixels: Double)
+    }
+
+    val myTurtle = Turtle()
+    with(myTurtle) { // 画一个 100 像素的正方形
+        penDown()
+        for(i in 1..4) {
+            forward(100.0)
+            turn(90.0)
+        }
+        penUp()
+    }
+     */
+
+    //配置对象的属性（apply）
+    /*
+    val myRectangle = Rectangle().apply {
+        length = 4
+        breadth = 5
+        color = 0xFAFAFA
+    }
+     */
+
+    //使用可空布尔
+    /*
+    val b: Boolean? = null
+    if (b == true) {
+        //
+    } else {
+        // `b` 是 false 或者 null
+    }
+     */
+
+    //交换两个变量
+    var a = 1
+    var b = 2
+    a = b.also { b = a }
 }
 
 //延迟属性
@@ -108,3 +165,20 @@ object Resource {
     val name = "Name"
 }
 
+//“try/catch”表达式
+fun test() {
+    val result = try {
+        count()
+    } catch (e: ArithmeticException) {
+        throw IllegalStateException(e)
+    }
+    // 使用 result
+    println("test result is $result")
+}
+
+fun count(): Int {
+    return 10
+}
+
+//TODO()：将代码标记为不完整
+fun calcTaxes(): BigDecimal = TODO("Waiting for feedback from accounting")
