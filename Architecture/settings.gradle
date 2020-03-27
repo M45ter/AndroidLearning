@@ -1,2 +1,2 @@
-include ':mvp'
+include ':mvp', ':mvp1'
 rootProject.name='Architecture'
