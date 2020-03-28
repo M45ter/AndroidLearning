@@ -28,4 +28,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     implementation 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:2.0.24'
+
+    implementation 'com.github.hackware1993:MagicIndicator:1.6.0'
 }
