@@ -1,5 +1,6 @@
 package com.zey.viewpager;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,12 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 import net.lucode.hackware.magicindicator.buildins.circlenavigator.CircleNavigator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -33,6 +40,9 @@ public class Main3Activity extends AppCompatActivity {
     private AutoScrollViewPager autoScrollViewPager;
 
     private MagicIndicator indicator;
+
+    private MagicIndicator indicator2;
+
 
     private void init() {
         autoScrollViewPager = findViewById(R.id.view_pager);
@@ -81,17 +91,51 @@ public class Main3Activity extends AppCompatActivity {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
                 indicator.onPageScrolled(i % list.size(), v, i1);
+                indicator2.onPageScrolled(i % list.size(), v, i1);
             }
 
             @Override
             public void onPageSelected(int i) {
                 indicator.onPageSelected(i % list.size());
+                indicator2.onPageSelected(i % list.size());
             }
 
             @Override
             public void onPageScrollStateChanged(int i) {
                 indicator.onPageScrollStateChanged(i);
+                indicator2.onPageScrollStateChanged(i);
             }
         });
+
+        indicator2 = findViewById(R.id.magic_indicator2);
+
+        final List<String> titles = new ArrayList<>();
+        titles.add("日");
+        titles.add("周");
+        titles.add("月");
+        titles.add("年");
+
+        CommonNavigator commonNavigator = new CommonNavigator(this);
+        commonNavigator.setAdapter(new CommonNavigatorAdapter() {
+            @Override
+            public int getCount() {
+                return list.size();
+            }
+
+            @Override
+            public IPagerTitleView getTitleView(Context context, int index) {
+                SimplePagerTitleView simplePagerTitleView = new ColorTransitionPagerTitleView(context);
+                simplePagerTitleView.setText(titles.get(index));
+                simplePagerTitleView.setNormalColor(Color.parseColor("#6B7CAA"));
+                simplePagerTitleView.setSelectedColor(Color.WHITE);
+                return simplePagerTitleView;
+            }
+
+            @Override
+            public IPagerIndicator getIndicator(Context context) {
+                return null;
+            }
+        });
+        indicator2.setNavigator(commonNavigator);
     }
 }
