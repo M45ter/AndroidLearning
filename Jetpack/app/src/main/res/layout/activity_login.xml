@@ -7,12 +7,36 @@
         <variable
             name="vm"
             type="com.zey.jetpack.login.LoginViewModel" />
+
+        <variable
+            name="click"
+            type="com.zey.jetpack.login.LoginActivity.ClickProxy" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".login.LoginActivity">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={vm.loginReq.name}"/>
+
+        <EditText
+            android:id="@+id/et_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={vm.loginReq.password}"/>
+
+        <Button
+            android:id="@+id/bt_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="登录"
+            android:onClick="@{()->click.login(vm)}"/>
+
+    </LinearLayout>
 </layout>
