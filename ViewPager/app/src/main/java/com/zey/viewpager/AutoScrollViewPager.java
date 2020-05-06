@@ -91,6 +91,14 @@ public class AutoScrollViewPager extends ViewPager implements LifecycleObserver 
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                pauseAutoScroll();
+                break;
+            case MotionEvent.ACTION_UP:
+                resumeAutoScroll();
+                break;
+        }
         return super.dispatchTouchEvent(ev);
     }
 }
