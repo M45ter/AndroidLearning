@@ -9,9 +9,14 @@ class MyClass(name: String) {
 
     val secondProperty = "Second property: ${name.length}".also(::println)
 
+    lateinit var color: String
+
     init {
         println("Second initializer block that prints ${name.length}")
+        color = "red"
+        println("Second initializer block that prints $color")
     }
+
     constructor() : this("123") {
         println("次构造函数")
     }
